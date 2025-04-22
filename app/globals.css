@@ -20,8 +20,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  a {
+    @apply text-indigo-700;
+  }
+}
+
+@layer components {
+  .primary-btn {
+    @apply bg-sky-700 text-white rounded-lg h-14 disabled:bg-neutral-300 disabled:cursor-not-allowed hover:bg-sky-600 transition;
   }
 }
