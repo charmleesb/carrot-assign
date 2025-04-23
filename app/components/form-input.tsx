@@ -2,12 +2,12 @@ interface FormInputProps {
   type: string;
   placeholder: string;
   required: boolean;
-  errors: string[];
+  errors?: string[];
   name: string;
   icon: React.ReactNode;
 }
 
-export default function FormInput({type, placeholder, required, errors, name, icon}:FormInputProps) {
+export default function FormInput({type, placeholder, required, errors = [], name, icon}:FormInputProps) {
   return (
     <div className="relative">
       {icon && (
