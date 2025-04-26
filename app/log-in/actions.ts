@@ -1,7 +1,6 @@
 "use server";
 import {z} from "zod";
 
-  await new Promise(resolve => setTimeout(resolve, (resolve, 1000)));
 const checkEmail = (email:string) => email.endsWith("@zod.com");
 const checkPassword = (password:string) => /\d/.test(password);
 
