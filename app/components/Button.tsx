@@ -2,11 +2,10 @@
 
 import { useFormStatus } from "react-dom";
 
-interface FormButtonProps {
-  loading: boolean;
+interface ButtonProps {
   text: string;
 }
-export default function FormBtn({text}:FormButtonProps) {
+export default function Button({text}:ButtonProps) {
   const { pending } =  useFormStatus(); // form 의 자식요소에만
   return (
     <button disabled={pending} className="primary-btn">{pending? "Loading..." : text}</button>
