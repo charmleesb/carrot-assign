@@ -1,7 +1,7 @@
 "use server";
 import { z } from "zod";
-import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR } from "../lib/constants";
-import db from "../lib/db";
+import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR } from "../../lib/constants";
+import db from "../../lib/db";
 
 const checkPasswords = (({password, confirmPassword}:{password:string, confirmPassword:string}) => password === confirmPassword)
 

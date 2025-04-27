@@ -4,17 +4,18 @@ interface InputProps {
   errors?: string[];
   name: string;
   icon?: React.ReactNode;
+  className?: string;
 }
 
-export default function Input({errors = [], name, ...rest}: InputProps & InputHTMLAttributes<HTMLInputElement>) {
+export default function Input({errors = [], name, className = "", icon, ...rest}: InputProps & InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className="relative">
-      {rest.icon && (
+      {icon && (
         <i className="w-5 h-5 absolute left-3 top-6 -translate-y-1/2 text-neutral-400 pointer-events-none">
-          {rest.icon}
+          {icon}
         </i>
       )}
-      <input className="bg-neutral-100 h-12 w-full outline-none rounded-lg px-5 focus:outline-none ring-1 focus:ring-2 ring-neutral-200 focus:ring-sky-700 border-none placeholder:text-neutral-400 transition" {...rest} />
+      <input className={`bg-neutral-100 h-12 w-full rounded-lg ring-1 focus:ring-2 ring-neutral-200 focus:ring-sky-700 border-none placeholder:text-neutral-400 outline-none ${icon ? "pl-10" : "px-4"} ${className}`} {...rest} />
       {errors.map((error, index) => (
         <span key={index} className="text-red-500 pt-3 font-medium block">{error}</span>
       ))}

@@ -2,8 +2,8 @@
 
 import { useFormState } from "react-dom";
 import { createAccount } from "./actions";
-import Input from "../components/Input";
-import Button from "../components/Button";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 export default function CreateAccount() {
   const [state, dispatch] = useFormState(createAccount, null);
