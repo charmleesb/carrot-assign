@@ -2,11 +2,15 @@
 
 import {z} from "zod";
 import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR } from "../../lib/constants";
+import bcrypt from "bcrypt";
+import getSession from "@/lib/session";
+import { redirect } from "next/navigation";
+import db from "@/lib/db";
 
-const checkEmail = (email:string) => email.endsWith("@zod.com");
+// const checkEmail = (email:string) => email.endsWith("@zod.com");
 
 const formSchema = z.object({
-  email: z.string().email().refine(checkEmail, "Only @zod.com emails are allowed"),
+  email: z.string().email(),
   username: z.string(),
   password: z.string().min(PASSWORD_MIN_LENGTH).regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR)
 })
@@ -20,10 +24,40 @@ export async function login(prevState: any, formData: FormData) {
   const result = await formSchema.safeParseAsync(data);
 
   if (!result.success) {
-    console.log(result.error.flatten());
     return { fieldErrors: result.error.flatten().fieldErrors };
   } else {
-    console.log(result.data);
-    return { success: true };
+    const user = await db.user.findUnique({
+      where: {
+        email: result.data.email
+      },
+      select: {
+        id: true,
+        password: true
+      }
+    });
+    if (!user) {
+      return {
+        fieldErrors: {
+          email: ["No account found with this email."],
+          username: [],
+          password: [],
+        },
+      };
+    }
+    const checkLogin = await bcrypt.compare(result.data.password, user.password ?? "");
+    if (checkLogin) {
+      const session = await getSession();
+      session.id = user!.id;
+      await session.save();
+      redirect("/profile");
+    } else {
+      return {
+        fieldErrors: {
+          password: ["Wrong password."],
+          username: [],
+          email: []
+        }
+      }
+    }
   }
 }

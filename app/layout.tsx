@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${geistSans.variable} ${geistMono.variable}`}>
-      <body className="bg-white text-black font-sans max-w-screen-sm mx-auto">
+      <body className="bg-white text-black font-sans max-w-screen-sm mx-auto px-20">
         {children}
       </body>
     </html>
