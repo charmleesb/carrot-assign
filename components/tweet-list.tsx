@@ -4,6 +4,7 @@ import { InitialTweets } from "@/app/page";
 import ListTweet from "./list-tweet";
 import { useState } from "react";
 import { getMoreTweets } from "@/app/action";
+import AddTweet from "./add-tweet";
 
 interface TweetListProps {
   initialTweets: InitialTweets;
@@ -17,10 +18,8 @@ export default function TweetList({ initialTweets }: TweetListProps) {
 
   const changePage = async (newPage: number) => {
     if (newPage < 1) return; // 1페이지보다 작은 건 못 가게
-
     setIsLoading(true);
-    const newTweets = await getMoreTweets(newPage);
-
+  const { tweets: newTweets, totalPages } = await getMoreTweets(newPage);
     if (newTweets.length === 0) {
       setIsLastPage(true); // 마지막 페이지 도달
     } else {
@@ -31,13 +30,20 @@ export default function TweetList({ initialTweets }: TweetListProps) {
 
     setIsLoading(false);
   };
+  
+  const refreshTweets = async () => {
+    
+    const {tweets: latest } = await getMoreTweets(1);
+    setTweets(latest);
+    setPage(1);
+  };
 
   return (
     <div className="flex flex-col gap-8">
+      <AddTweet onTweetCreated={refreshTweets} />
       {tweets.map((tweet) => (
         <ListTweet key={tweet.id} {...tweet} />
       ))}
-      {/* 페이지네이션 */}
       <div className="flex justify-center gap-3 text-2xl">
         <button onClick={() => changePage(page - 1)} disabled={page === 1 || isLoading}>＜</button>
         {[1, 2, 3, 4, 5].map((num) => (
