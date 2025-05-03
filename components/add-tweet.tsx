@@ -1,41 +1,36 @@
 "use client";
 
-import { useState } from "react";
 import { addTweet } from "@/app/action";
+import Button from "./Button";
+import { useFormState } from "react-dom";
+import { useEffect, useRef } from "react";
 
-export default function AddTweet({ onTweetCreated }: { onTweetCreated?: () => void }) {
-  const [tweet, setTweet] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+interface AddTweetProps {
+  onTweetCreated: () => void;
+}
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (tweet.trim().length === 0) return;
+const initialState = {
+  message: "",
+  success: false,
+};
 
-    setIsSubmitting(true);
-    await addTweet(tweet);
-    setTweet("");
-    setIsSubmitting(false);
+export default function AddTweet({ onTweetCreated }: AddTweetProps) {
+  const [state, formAction] = useFormState(addTweet, initialState);
+  const formRef = useRef<HTMLFormElement>(null);
 
-    onTweetCreated?.();
-  };
+  useEffect(() => {
+    if (state.success && formRef.current) {
+      formRef.current.reset();
+      onTweetCreated();
+      state.success = false;
+    }
+  }, [state.success]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-xl mx-auto mb-8">
-      <textarea
-        value={tweet}
-        onChange={(e) => setTweet(e.target.value)}
-        className="w-full p-4 border rounded-md resize-none"
-        rows={4}
-        placeholder="Add Tweet ..."
-        disabled={isSubmitting}
-      />
-      <button
-        type="submit"
-        disabled={isSubmitting || tweet.trim().length === 0}
-        className="mt-3 px-4 py-2 bg-sky-500 text-white rounded-md hover:bg-sky-600 disabled:opacity-50"
-      >
-        {isSubmitting ? "작성 중..." : "트윗 작성"}
-      </button>
+    <form ref={formRef} action={formAction} className="flex flex-col w-full max-w-xl mx-auto mb-8 gap-5">
+      <textarea name="tweet" id="tweet" className="w-full p-4 border rounded-md resize-none">
+      </textarea>
+      <Button text="Add Tweet" />
     </form>
   );
 }

@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
 
   if (!session.id) {
     if (!exists) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/log-in", request.url));
     } 
   } else {
     if (exists) {

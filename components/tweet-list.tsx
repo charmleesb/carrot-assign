@@ -1,10 +1,10 @@
 "use client";
 
-import { InitialTweets } from "@/app/page";
 import ListTweet from "./list-tweet";
 import { useState } from "react";
 import { getMoreTweets } from "@/app/action";
 import AddTweet from "./add-tweet";
+import { InitialTweets } from "./home";
 
 interface TweetListProps {
   initialTweets: InitialTweets;
@@ -32,7 +32,6 @@ export default function TweetList({ initialTweets }: TweetListProps) {
   };
   
   const refreshTweets = async () => {
-    
     const {tweets: latest } = await getMoreTweets(1);
     setTweets(latest);
     setPage(1);

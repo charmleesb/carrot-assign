@@ -3,6 +3,11 @@
 import db from "@/lib/db";
 import getSession from "@/lib/session";
 
+interface TweetFormState {
+  message?: string;
+  success?: boolean;
+}
+
 export async function getMoreTweets(page:number, pageSize = 5) {
   const [tweets, totalCount] = await Promise.all([
     db.tweet.findMany({
@@ -30,11 +35,16 @@ export async function getMoreTweets(page:number, pageSize = 5) {
   };
 }
 
-export async function addTweet(tweet: string) {
+export async function addTweet(prevState:TweetFormState, formData:FormData) {
+  const tweet = formData.get("tweet")?.toString().trim();
   const session = await getSession();
 
-  if (!session.id) {
+  if (!session.id ) {
     throw new Error("로그인해야 트윗을 작성할 수 있습니다.");
+  }
+
+  if (!tweet) {
+    throw new Error("메세지를 입력해주세요.");
   }
 
   await db.tweet.create({
@@ -47,4 +57,5 @@ export async function addTweet(tweet: string) {
       },
     },
   });
+  return { success: true};
 }
