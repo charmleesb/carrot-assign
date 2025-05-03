@@ -4,38 +4,48 @@ import ListTweet from "./list-tweet";
 import { useState } from "react";
 import { getMoreTweets } from "@/app/action";
 import AddTweet from "./add-tweet";
-import { InitialTweets } from "./home";
+import type { Prisma } from "@prisma/client";
+
+export type InitialTweets = Awaited<ReturnType<typeof getMoreTweets>>["tweets"];
 
 interface TweetListProps {
   initialTweets: InitialTweets;
+  initialTotalPages: number;
 }
 
-export default function TweetList({ initialTweets }: TweetListProps) {
+export default function TweetList({ initialTweets, initialTotalPages }: TweetListProps) {
   const [tweets, setTweets] = useState(initialTweets);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [isLastPage, setIsLastPage] = useState(false);
+  const [totalPages, setTotalPages] = useState(initialTotalPages);
+  // const [isLastPage, setIsLastPage] = useState(false);
+
+  const visiblePages = 5;
 
   const changePage = async (newPage: number) => {
-    if (newPage < 1) return; // 1페이지보다 작은 건 못 가게
+    if (newPage < 1 || newPage > totalPages) return;
     setIsLoading(true);
-  const { tweets: newTweets, totalPages } = await getMoreTweets(newPage);
+
+    const { tweets: newTweets, totalPages: newTotalPages } = await getMoreTweets(newPage);
+
     if (newTweets.length === 0) {
-      setIsLastPage(true); // 마지막 페이지 도달
     } else {
       setTweets(newTweets);
+      setTotalPages(newTotalPages);
       setPage(newPage);
-      setIsLastPage(false);
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
   
   const refreshTweets = async () => {
-    const {tweets: latest } = await getMoreTweets(1);
+    const {tweets: latest, totalPages: newTotalPages } = await getMoreTweets(1);
     setTweets(latest);
+    setTotalPages(newTotalPages);
     setPage(1);
   };
+
+  const start = Math.max(1, page - Math.floor(visiblePages / 2));
+  const end = Math.min(totalPages, start + visiblePages - 1);
 
   return (
     <div className="flex flex-col gap-8">
@@ -44,18 +54,18 @@ export default function TweetList({ initialTweets }: TweetListProps) {
         <ListTweet key={tweet.id} {...tweet} />
       ))}
       <div className="flex justify-center gap-3 text-2xl">
-        <button onClick={() => changePage(page - 1)} disabled={page === 1 || isLoading}>＜</button>
-        {[1, 2, 3, 4, 5].map((num) => (
+        <button onClick={() => changePage(page - 1)} disabled={page === 1 || isLoading} className={page === 1 ? "invisible" : ""}>＜</button>
+        {Array.from({ length: end - start + 1 }, (_, i) => start + i).map((num) => (
           <button
             key={num}
             onClick={() => changePage(num)}
             disabled={isLoading}
-            className={page === num ? "font-bold text-sky-500" : ""}
+            className={`w-10 h-10 text-center ${page === num ? "font-bold text-sky-500" : ""}`}
           >
             {num}
           </button>
         ))}
-        <button onClick={() => changePage(page + 1)} disabled={isLastPage || isLoading}>＞</button>
+        <button onClick={() => changePage(page + 1)} disabled={page === totalPages || isLoading}className={page === totalPages ? "invisible" : ""}>＞</button>
       </div>
     </div>
   );
