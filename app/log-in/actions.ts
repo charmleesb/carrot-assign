@@ -21,7 +21,7 @@ export async function login(prevState: any, formData: FormData) {
     username: formData.get("username" as string),
     password: formData.get("password" as string)
   }
-  const result = await formSchema.safeParseAsync(data);
+  const result = await formSchema.spa(data);
 
   if (!result.success) {
     return { fieldErrors: result.error.flatten().fieldErrors };

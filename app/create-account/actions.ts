@@ -1,4 +1,5 @@
 "use server";
+
 import { z } from "zod";
 import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR } from "../../lib/constants";
 import db from "../../lib/db";
@@ -6,7 +7,7 @@ import bcrypt from "bcrypt";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
 
-const checkPasswords = (({password, confirmPassword}:{password:string, confirmPassword:string}) => password === confirmPassword)
+const checkPasswords = (({password, confirmPassword}:{password:string, confirmPassword:string}) => password === confirmPassword);
 const formSchema = z.object({
   username: z.string({
     invalid_type_error: "Username must be a string !",
