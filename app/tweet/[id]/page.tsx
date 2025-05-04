@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { HeartIcon } from "@heroicons/react/24/solid"; // Solid 버전
 import LikeButton from "@/components/like-button";
 import getSession from "@/lib/session";
+import CommentList from "@/components/comment-list";
+import { getComments } from "./actions";
 
 async function getTweet(id:number) {
   const tweet = await db.tweet.findUnique({
@@ -21,6 +23,20 @@ async function getTweet(id:number) {
   });
   return tweet;
 }
+
+async function getUsername(id:number) {
+  const user = await db.user.findUnique({
+    where: {
+      id
+    },
+    select: {
+      username: true
+    }
+  });
+  if (user) {
+    return user.username;
+  }
+};
 
 async function getLikeStatus(tweetId:number) {
   const session = await getSession();
@@ -54,19 +70,26 @@ export default async function TweetDetail({params,}:{params: {id:string}}) {
   }
 
   const {likeCount, isLiked} = await getLikeStatus(id);
+  const comments = await getComments(id);
+  const session = await getSession();
+  const username = (await getUsername(Number(session.id))) ?? "";;
+
   return (
-    <div className="flex flex-col bg-sky-100 h-screen p-5">
-      <div className="flex justify-between items-center border-b border-neutral-400 pb-2">
-        <span className="text-xl">{tweet.user.username}</span>
-        <div className="w-5 h-5 bg-sky-800 rounded-full flex items-center justify-center">
-          <span className="text-white text-sm">{tweet.user.bio}</span>
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col bg-sky-100 max-h-[300px] p-5">
+        <div className="flex justify-between items-center border-b border-neutral-400 pb-2">
+          <span className="text-xl">{tweet.user.username}</span>
+          <div className="w-5 h-5 bg-sky-800 rounded-full flex items-center justify-center">
+            <span className="text-white text-sm">{tweet.user.bio}</span>
+          </div>
+        </div>
+        <span className="py-10">{tweet.tweet}</span>
+        <div className="flex justify-between items-center">
+          <LikeButton isLiked={isLiked} likeCount={likeCount} tweetId={id} />
+          <span className="text-right text-sm text-neutral-500">{formatToTimeAgo(tweet.created_at.toString())}</span>
         </div>
       </div>
-      <span className="py-10">{tweet.tweet}</span>
-      <div className="flex justify-between items-center">
-        <LikeButton isLiked={isLiked} likeCount={likeCount} tweetId={id} />
-        <span className="text-right text-sm text-neutral-500">{formatToTimeAgo(tweet.created_at.toString())}</span>
-      </div>
+      <CommentList initialComments={comments} tweetId={id} username={username} />
     </div>
   );
 }

@@ -4,7 +4,6 @@ import ListTweet from "./list-tweet";
 import { useState } from "react";
 import { getMoreTweets } from "@/app/action";
 import AddTweet from "./add-tweet";
-import type { Prisma } from "@prisma/client";
 
 export type InitialTweets = Awaited<ReturnType<typeof getMoreTweets>>["tweets"];
 

@@ -8,6 +8,6 @@ interface ButtonProps {
 export default function Button({text}:ButtonProps) {
   const { pending } =  useFormStatus();
   return (
-    <button disabled={pending} className="primary-btn">{pending? "Loading..." : text}</button>
+    <button disabled={pending} className="primary-btn w-full">{pending? "Loading..." : text}</button>
   )
 }

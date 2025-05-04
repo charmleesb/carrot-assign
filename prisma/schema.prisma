@@ -47,6 +47,7 @@ model Like {
 
 model Comment {
   id         Int      @id @default(autoincrement())
+  comment    String
   user       User     @relation(fields: [userId], references: [id])
   tweet      Tweet    @relation(fields: [tweetId], references: [id])
   created_at DateTime @default(now())

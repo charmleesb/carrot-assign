@@ -28,6 +28,6 @@ body {
 
 @layer components {
   .primary-btn {
-    @apply bg-sky-700 w-full text-white rounded-lg h-14 disabled:bg-neutral-300 disabled:cursor-not-allowed hover:bg-sky-600 transition w-full;
+    @apply bg-sky-700 text-white rounded-lg h-14 disabled:bg-neutral-300 disabled:cursor-not-allowed hover:bg-sky-600 transition;
   }
 }
