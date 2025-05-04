@@ -1,6 +1,9 @@
 import db from "@/lib/db";
 import { formatToTimeAgo } from "@/lib/utils";
 import { notFound } from "next/navigation";
+import { HeartIcon } from "@heroicons/react/24/solid"; // Solid 버전
+import LikeButton from "@/components/like-button";
+import getSession from "@/lib/session";
 
 async function getTweet(id:number) {
   const tweet = await db.tweet.findUnique({
@@ -19,6 +22,27 @@ async function getTweet(id:number) {
   return tweet;
 }
 
+async function getLikeStatus(tweetId:number) {
+  const session = await getSession();
+  const isLiked = await db.like.findUnique({
+    where: {
+      id: {
+        tweetId,
+        userId: session.id!,
+      }
+    },
+  });
+  const likeCount = await db.like.count({
+    where: {
+      tweetId
+    }
+  });
+
+  return {
+    likeCount, isLiked: Boolean(isLiked)
+  }
+};
+
 export default async function TweetDetail({params,}:{params: {id:string}}) {
   const id = Number(params.id);
   if (isNaN(id)) {
@@ -28,6 +52,8 @@ export default async function TweetDetail({params,}:{params: {id:string}}) {
   if (!tweet) {
     return notFound();
   }
+
+  const {likeCount, isLiked} = await getLikeStatus(id);
   return (
     <div className="flex flex-col bg-sky-100 h-screen p-5">
       <div className="flex justify-between items-center border-b border-neutral-400 pb-2">
@@ -37,7 +63,10 @@ export default async function TweetDetail({params,}:{params: {id:string}}) {
         </div>
       </div>
       <span className="py-10">{tweet.tweet}</span>
-      <span className="text-right text-sm text-neutral-500">{formatToTimeAgo(tweet.created_at.toString())}</span>
+      <div className="flex justify-between items-center">
+        <LikeButton isLiked={isLiked} likeCount={likeCount} tweetId={id} />
+        <span className="text-right text-sm text-neutral-500">{formatToTimeAgo(tweet.created_at.toString())}</span>
+      </div>
     </div>
   );
 }
