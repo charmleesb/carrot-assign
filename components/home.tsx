@@ -1,7 +1,5 @@
-import { getMoreTweets } from "@/app/action";
+import { getMoreTweets } from "@/app/actions";
 import TweetList from "@/components/tweet-list";
-import db from "@/lib/db";
-import { Prisma } from "@prisma/client";
 export const revalidate = 0;
 
 export default async function Home() {

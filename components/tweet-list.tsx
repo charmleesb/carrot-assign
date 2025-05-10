@@ -2,7 +2,7 @@
 
 import ListTweet from "./list-tweet";
 import { useState } from "react";
-import { getMoreTweets } from "@/app/action";
+import { getMoreTweets } from "@/app/actions";
 import AddTweet from "./add-tweet";
 
 export type InitialTweets = Awaited<ReturnType<typeof getMoreTweets>>["tweets"];
@@ -47,7 +47,7 @@ export default function TweetList({ initialTweets, initialTotalPages }: TweetLis
   const end = Math.min(totalPages, start + visiblePages - 1);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 w-full">
       <AddTweet onTweetCreated={refreshTweets} />
       {tweets.map((tweet) => (
         <ListTweet key={tweet.id} {...tweet} />

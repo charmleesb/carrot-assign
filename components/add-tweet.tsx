@@ -1,6 +1,6 @@
 "use client";
 
-import { addTweet } from "@/app/action";
+import { addTweet } from "@/app/actions";
 import Button from "./Button";
 import { useFormState } from "react-dom";
 import { useEffect, useRef } from "react";
@@ -30,7 +30,7 @@ export default function AddTweet({ onTweetCreated }: AddTweetProps) {
     <form ref={formRef} action={formAction} className="flex flex-col w-full max-w-xl mx-auto mb-8 gap-5">
       <textarea name="tweet" id="tweet" className="w-full p-4 border rounded-md resize-none">
       </textarea>
-      <Button text="Add Tweet" />
+      <Button text="게시하기" />
     </form>
   );
 }

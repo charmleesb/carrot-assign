@@ -70,12 +70,8 @@ export async function createAccount(prevState: any, formData: FormData) {
     password: formData.get("password"),
     confirmPassword: formData.get("confirmPassword"),
   };
-  console.log("username:", formData.get("username"));
-  console.log("email:", formData.get("email"));
-  console.log("password:", formData.get("password"));
-  console.log("confirmPassword:", formData.get("confirmPassword"));
+
   const result = await formSchema.spa(data);
-  console.log(result.data);
   if (!result.success) {
     console.log(result.error.flatten());
     return result.error.flatten();
