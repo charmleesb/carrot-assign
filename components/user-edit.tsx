@@ -13,7 +13,7 @@ type UserEditInfo = {
 };
 
 export default function UserEdit({ infos }: { infos: UserEditInfo }) {
-  const [state, dispatch] = useFormState(updateUserInfos {
+  const [state, dispatch] = useFormState(updateUserInfos, {
     fieldErrors: {},
     success: false,
   });
