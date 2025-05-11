@@ -6,7 +6,7 @@ import { z } from "zod";
 
 interface TweetFormState {
   errors?: {
-    tweet: string;
+    tweet?: string[];
   };
   success?: boolean;
 }
@@ -43,11 +43,6 @@ const tweetSchema = z.object({
   .trim(),
 });
 
-interface TweetFormState {
-  success?: boolean;
-  tweet?: string[];
-}
-
 export async function addTweet(prevState:TweetFormState, formData:FormData): Promise<TweetFormState>  {
   const session = await getSession();
   if (!session.id ) {
@@ -64,7 +59,7 @@ export async function addTweet(prevState:TweetFormState, formData:FormData): Pro
     console.log("Add Tweet Error");
     return {
       success: false,
-      errors: result.error.flatten()
+      errors: result.error.flatten().fieldErrors
     };
   } else {
     await db.tweet.create({

@@ -10,7 +10,7 @@ interface AddTweetProps {
 }
 
 const initialState = {
-  errors: [],
+  fieldErrors: {},
   success: false,
 };
 
@@ -31,7 +31,7 @@ export default function AddTweet({onTweetCreated }: AddTweetProps) {
       <div>
         <textarea name="tweet" id="tweet" className="w-full p-4 border rounded-md resize-none">
         </textarea>
-        <span className="text-red-500 font-medium block">{state?.errors?.fieldErrors?.tweet}</span>
+        <span className="text-red-500 font-medium block">{state?.errors?.tweet}</span>
       </div>
       <Button text="게시하기" />
     </form>
