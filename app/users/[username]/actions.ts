@@ -3,9 +3,7 @@ import db from "@/lib/db";
 export async function getuserTweets(userId:number) {
   const tweets = db.tweet.findMany({
     where: {
-      id: {
-        userId
-      }
+      id: userId
     },
     select: {
       tweet: true,
