@@ -26,12 +26,12 @@ async function getUser() {
 
 export default async function Profile() {
   const user = await getUser();
-  const logOut = async () => {
-    "use server";
-    const session = await getSession();
-    await session.destroy();
-    redirect("/");
-  }
+  // const logOut = async () => {
+  //   "use server";
+  //   const session = await getSession();
+  //   await session.destroy();
+  //   redirect("/");
+  // }
   const userTweets = await getuserTweets(user.id);
   
   return (
