@@ -84,7 +84,12 @@ export async function getUser() {
   notFound();
 };
 
-export async function updateUserInfos(formData: FormData) {
+interface FormState {
+  success?: boolean;
+  error?: string;
+}
+
+export async function updateUserInfos(preveState: FormState, formData: FormData) {
   const session = await getSession();
   const id = session.id;
   const data = {

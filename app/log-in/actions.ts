@@ -15,7 +15,12 @@ const formSchema = z.object({
   password: z.string().min(PASSWORD_MIN_LENGTH).regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR)
 })
 
-export async function login(formData: FormData) {
+interface FormState {
+  success?: boolean;
+  error?: string;
+};
+
+export async function login(prevState:FormState, formData: FormData) {
   const data = {
     email: formData.get("email") as string,
     username: formData.get("username" as string),
@@ -49,7 +54,7 @@ export async function login(formData: FormData) {
       const session = await getSession();
       session.id = user!.id;
       await session.save();
-      redirect("/profile");
+      redirect(`/users/${session.id}`);
     } else {
       return {
         fieldErrors: {

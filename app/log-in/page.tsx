@@ -4,6 +4,7 @@ import { useFormState } from "react-dom";
 import { login } from "./actions";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import Link from "next/link";
 
 export default function Login() {
   const [state, dispatch] = useFormState(login, null);
@@ -29,6 +30,7 @@ export default function Login() {
           </svg>}/>
           <Button text="Log in" />
         </form>
+        <Link className="text-sm text-black underline underline-offset-4" href="/create-account">계정 생성</Link>
       </div>
     </div>
   )
