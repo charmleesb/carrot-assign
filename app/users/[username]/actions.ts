@@ -11,7 +11,8 @@ export async function getuserTweets(userId:number) {
       id: true,
       user: {
         select: {
-          username: true
+          username: true,
+          id: true
         }
       }
     },

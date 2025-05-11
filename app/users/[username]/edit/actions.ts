@@ -75,7 +75,8 @@ export async function getUser() {
       username: true,
       email: true,
       bio: true,
-      password: true
+      password: true,
+      id: true
     }
   });
   if (user) {

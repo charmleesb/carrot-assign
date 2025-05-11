@@ -16,6 +16,7 @@ async function getUser() {
       username: true,
       email: true,
       bio: true,
+      id: true
     }
   });
   if (user) {
