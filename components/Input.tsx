@@ -16,7 +16,7 @@ export default function Input({errors = [], name, className = "", icon, defaultV
           {icon}
         </i>
       )}
-      <input name={name} defaultValue={defaultValue} className={`bg-neutral-100 h-12 w-full rounded-lg ring-1 focus:ring-2 ring-neutral-200 focus:ring-sky-700 border-none placeholder:text-neutral-400 outline-none ${icon ? "pl-10" : "px-4"} ${className}`} {...rest} />
+      <input name={name} defaultValue={defaultValue} className={`bg-neutral-100 h-12 w-full rounded-full ring-1 focus:ring-2 ring-neutral-200 focus:ring-sky-700 border-none placeholder:text-neutral-400 outline-none ${icon ? "pl-10" : "px-4"} ${className}`} {...rest} />
       {errors.map((error, index) => (
         <span key={index} className="text-red-500 pt-3 font-medium block">{error}</span>
       ))}
