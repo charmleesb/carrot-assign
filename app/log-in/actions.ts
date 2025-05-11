@@ -17,10 +17,14 @@ const formSchema = z.object({
 
 interface FormState {
   success?: boolean;
-  error?: string;
+  fieldErrors?: {
+    email?: string[];
+    username?: string[];
+    password?: string[];
+  };
 };
 
-export async function login(prevState:FormState, formData: FormData) {
+export async function login(prevState:FormState, formData: FormData): Promise<FormState> {
   const data = {
     email: formData.get("email") as string,
     username: formData.get("username" as string),

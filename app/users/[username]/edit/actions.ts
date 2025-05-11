@@ -86,10 +86,15 @@ export async function getUser() {
 
 interface FormState {
   success?: boolean;
-  error?: string;
+  fieldErrors?: {
+    email?: string[];
+    username?: string[];
+    password?: string[];
+    confirmPassword?: string[];
+  };
 }
 
-export async function updateUserInfos(preveState: FormState, formData: FormData) {
+export async function updateUserInfos(preveState: FormState, formData: FormData): Promise<FormState> {
   const session = await getSession();
   const id = session.id;
   const data = {

@@ -41,7 +41,12 @@ const tweetSchema = z.object({
   .trim(),
 });
 
-export async function addTweet(prevState:TweetFormState, formData:FormData) {
+interface TweetFormState {
+  success?: boolean;
+  tweet?: string[];
+}
+
+export async function addTweet(prevState:TweetFormState, formData:FormData): Promise<FormState>  {
   const session = await getSession();
   if (!session.id ) {
     throw new Error("로그인해야 트윗을 작성할 수 있습니다.");
