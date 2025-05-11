@@ -2,6 +2,7 @@
 
 import { updateUserInfos } from "@/app/users/[username]/edit/actions";
 import Input from "@/components/Input";
+import Link from "next/link";
 import { useFormState } from "react-dom";
 
 type UserEditInfo = {
@@ -17,7 +18,10 @@ export default function UserEdit({ infos }: { infos: UserEditInfo })  {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between w-full border-b-2 pb-2 border-neutral-300">
         <span className="text-lg font-bold">프로필 수정</span>
-        <button type="submit" form="edit-form" className="bg-black text-white py-1.5 px-4 rounded-full text-sm hover:bg-neutral-700 transition">저장</button>
+        <div className="flex gap-1">
+          <Link href={`/users/${infos.username}`}className="bg-white border border-neutral-400 text-black py-1.5 px-4 rounded-full text-sm hover:bg-neutral-200 transition">취소</Link>
+          <button type="submit" form="edit-form" className="bg-black text-white py-1.5 px-4 rounded-full text-sm hover:bg-neutral-700 transition">저장</button>
+        </div>
       </div>
       <form id="edit-form" action={dispatch} className="flex flex-col gap-3">
         <Input className="px-10" name="username" type="text" defaultValue={infos.username} placeholder="Username" required icon={<svg data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

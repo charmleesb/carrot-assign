@@ -27,7 +27,7 @@ export default function AddTweet({ onTweetCreated }: AddTweetProps) {
   }, [state.success]);
 
   return (
-    <form ref={formRef} action={formAction} className="flex flex-col w-full max-w-xl mx-auto mb-8 gap-5">
+    <form ref={formRef} action={formAction} className="flex flex-col w-full max-w-xl mx-auto gap-5">
       <textarea name="tweet" id="tweet" className="w-full p-4 border rounded-md resize-none">
       </textarea>
       <Button text="게시하기" />

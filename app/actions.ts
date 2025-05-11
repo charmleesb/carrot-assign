@@ -2,6 +2,7 @@
 
 import db from "@/lib/db";
 import getSession from "@/lib/session";
+import { redirect } from "next/navigation";
 
 interface TweetFormState {
   message?: string;
@@ -57,5 +58,34 @@ export async function addTweet(prevState:TweetFormState, formData:FormData) {
       },
     },
   });
-  return { success: true};
+  return { success: true };
 }
+// export async function getSearchTweets(prevState:TweetFormState, formData:FormData) {
+//   const data = {
+//     searchQuery: formData.get("searchQuery")?.toString().trim()
+//   }
+
+//   const tweets = await Promise.all([
+//     db.tweet.findMany({
+//       where: {
+//         tweet: {
+//           contains: data.searchQuery,
+//         },
+//       },
+//       select: {
+//         tweet: true,
+//         created_at: true,
+//         user: {
+//           select: {
+//             username: true,
+//           }
+//         }
+//       },
+//       orderBy: {
+//         created_at: "desc"
+//       }
+//     })
+//   ])
+
+//   return tweets;
+// }

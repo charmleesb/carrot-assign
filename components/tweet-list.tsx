@@ -4,6 +4,7 @@ import ListTweet from "./list-tweet";
 import { useState } from "react";
 import { getMoreTweets } from "@/app/actions";
 import AddTweet from "./add-tweet";
+import SearchForm from "./search-form";
 
 export type InitialTweets = Awaited<ReturnType<typeof getMoreTweets>>["tweets"];
 
@@ -17,7 +18,6 @@ export default function TweetList({ initialTweets, initialTotalPages }: TweetLis
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
-  // const [isLastPage, setIsLastPage] = useState(false);
 
   const visiblePages = 5;
 
@@ -47,24 +47,28 @@ export default function TweetList({ initialTweets, initialTotalPages }: TweetLis
   const end = Math.min(totalPages, start + visiblePages - 1);
 
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <div className="flex flex-col gap-10 w-full">
       <AddTweet onTweetCreated={refreshTweets} />
-      {tweets.map((tweet) => (
-        <ListTweet key={tweet.id} {...tweet} />
-      ))}
-      <div className="flex justify-center gap-3 text-2xl">
-        <button onClick={() => changePage(page - 1)} disabled={page === 1 || isLoading} className={page === 1 ? "invisible" : ""}>＜</button>
-        {Array.from({ length: end - start + 1 }, (_, i) => start + i).map((num) => (
-          <button
-            key={num}
-            onClick={() => changePage(num)}
-            disabled={isLoading}
-            className={`w-10 h-10 text-center ${page === num ? "font-bold text-sky-500" : ""}`}
-          >
-            {num}
-          </button>
+      <div className="flex flex-col gap-4">
+
+        <SearchForm defaultValue=""/>
+        {tweets.map((tweet) => (
+          <ListTweet key={tweet.id} {...tweet} />
         ))}
-        <button onClick={() => changePage(page + 1)} disabled={page === totalPages || isLoading}className={page === totalPages ? "invisible" : ""}>＞</button>
+        <div className="flex justify-center gap-3 text-2xl">
+          <button onClick={() => changePage(page - 1)} disabled={page === 1 || isLoading} className={page === 1 ? "invisible" : ""}>＜</button>
+          {Array.from({ length: end - start + 1 }, (_, i) => start + i).map((num) => (
+            <button
+              key={num}
+              onClick={() => changePage(num)}
+              disabled={isLoading}
+              className={`w-10 h-10 text-center ${page === num ? "font-bold text-sky-500" : ""}`}
+            >
+              {num}
+            </button>
+          ))}
+          <button onClick={() => changePage(page + 1)} disabled={page === totalPages || isLoading}className={page === totalPages ? "invisible" : ""}>＞</button>
+        </div>
       </div>
     </div>
   );
