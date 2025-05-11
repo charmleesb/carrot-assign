@@ -9,7 +9,7 @@ interface TweetFormState {
   success?: boolean;
 }
 
-export async function getMoreTweets(page:number, pageSize = 5) {
+export async function getMoreTweets(page:number, pageSize = 2) {
   const [tweets, totalCount] = await Promise.all([
     db.tweet.findMany({
       select: {
