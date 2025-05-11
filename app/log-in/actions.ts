@@ -15,7 +15,7 @@ const formSchema = z.object({
   password: z.string().min(PASSWORD_MIN_LENGTH).regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR)
 })
 
-export async function login(prevState: any, formData: FormData) {
+export async function login(formData: FormData) {
   const data = {
     email: formData.get("email") as string,
     username: formData.get("username" as string),

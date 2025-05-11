@@ -1,6 +1,4 @@
 import db from "@/lib/db";
-import getSession from "@/lib/session";
-import { notFound } from "next/navigation";
 
 export async function getuserTweets(userId:number) {
   const tweets = db.tweet.findMany({

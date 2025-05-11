@@ -15,7 +15,9 @@ export async function likePost(tweetId:number) {
       }
     });
     revalidateTag(`like-status-${tweetId}`);
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export async function dislikePost(tweetId:number) {
@@ -31,7 +33,9 @@ export async function dislikePost(tweetId:number) {
       }
     });
     revalidateTag(`like-status-${tweetId}`);
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export async function getComments(tweetId:number) {

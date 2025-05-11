@@ -2,7 +2,7 @@ import UserTweetList from "@/components/user-tweet-list";
 import db from "@/lib/db";
 import getSession from "@/lib/session"
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getuserTweets } from "./actions";
 import Link from "next/link";
 

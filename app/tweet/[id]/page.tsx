@@ -1,7 +1,6 @@
 import db from "@/lib/db";
 import { formatToTimeAgo } from "@/lib/utils";
 import { notFound } from "next/navigation";
-import { HeartIcon } from "@heroicons/react/24/solid"; // Solid 버전
 import LikeButton from "@/components/like-button";
 import getSession from "@/lib/session";
 import CommentList from "@/components/comment-list";
