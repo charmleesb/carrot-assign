@@ -10,11 +10,11 @@ interface AddTweetProps {
 }
 
 const initialState = {
-  message: "",
+  errors: [],
   success: false,
 };
 
-export default function AddTweet({ onTweetCreated }: AddTweetProps) {
+export default function AddTweet({onTweetCreated }: AddTweetProps) {
   const [state, formAction] = useFormState(addTweet, initialState);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -27,9 +27,12 @@ export default function AddTweet({ onTweetCreated }: AddTweetProps) {
   }, [state.success]);
 
   return (
-    <form ref={formRef} action={formAction} className="flex flex-col w-full max-w-xl mx-auto gap-5">
-      <textarea name="tweet" id="tweet" className="w-full p-4 border rounded-md resize-none">
-      </textarea>
+    <form ref={formRef} action={formAction} className="flex flex-col w-full max-w-xl mx-auto gap-3">
+      <div>
+        <textarea name="tweet" id="tweet" className="w-full p-4 border rounded-md resize-none">
+        </textarea>
+        <span className="text-red-500 font-medium block">{state?.errors?.fieldErrors?.tweet}</span>
+      </div>
       <Button text="게시하기" />
     </form>
   );

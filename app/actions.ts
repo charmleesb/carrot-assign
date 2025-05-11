@@ -2,10 +2,10 @@
 
 import db from "@/lib/db";
 import getSession from "@/lib/session";
-import { redirect } from "next/navigation";
+import { z } from "zod";
 
 interface TweetFormState {
-  message?: string;
+  errors?: string;
   success?: boolean;
 }
 
@@ -36,27 +36,41 @@ export async function getMoreTweets(page:number, pageSize = 5) {
   };
 }
 
-export async function addTweet(prevState:TweetFormState, formData:FormData) {
-  const tweet = formData.get("tweet")?.toString().trim();
-  const session = await getSession();
+const tweetSchema = z.object({
+  tweet: z.string().min(1, { message: "내용을 입력해주세요."})
+  .trim(),
+});
 
+export async function addTweet(prevState:TweetFormState, formData:FormData) {
+  const session = await getSession();
   if (!session.id ) {
     throw new Error("로그인해야 트윗을 작성할 수 있습니다.");
   }
 
-  if (!tweet) {
-    throw new Error("메세지를 입력해주세요.");
-  }
+  const data = {
+    tweet: formData.get("tweet")?.toString().trim()
+  };
 
-  await db.tweet.create({
-    data: {
-      tweet,
-      user: {
-        connect: {
-          id: session.id,
+  const result = await tweetSchema.spa(data);
+
+  if (!result.success) {
+    console.log("Add Tweet Error");
+    return {
+      success: false,
+      errors: result.error.flatten()
+    };
+  } else {
+    await db.tweet.create({
+      data: {
+        tweet: result.data.tweet,
+        user: {
+          connect: {
+            id: session.id,
+          },
         },
       },
-    },
-  });
+    });
+  }
+
   return { success: true };
 }
