@@ -11,7 +11,7 @@ interface TweetListProps {
 }
 
 export default function UserTweetList({ initialTweets }: TweetListProps) {
-  const [tweets, _] = useState(initialTweets);
+  const [tweets] = useState(initialTweets);
   return (
     <div className="flex flex-col gap-8 w-full">
       {tweets.map((tweet) => (
