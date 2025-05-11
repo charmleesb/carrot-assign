@@ -5,7 +5,9 @@ import getSession from "@/lib/session";
 import { z } from "zod";
 
 interface TweetFormState {
-  errors?: string;
+  errors?: {
+    tweet: string;
+  };
   success?: boolean;
 }
 
