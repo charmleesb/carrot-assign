@@ -21,10 +21,10 @@ export default function CreateAccount() {
           </div>
         </div>
         <form action={dispatch} className="flex flex-col gap-5 w-full">
-          <Input name="email" type="email" placeholder="Email" required errors={state?.fieldErrors?.email} />
-          <Input name="username" type="text" placeholder="Username" required minLength={3} maxLength={10} errors={state?.fieldErrors?.username} />
-          <Input name="password" type="password" placeholder="Password" required  minLength={4} errors={state?.fieldErrors?.password} />
-          <Input name="confirmPassword" type="password" placeholder="Confirm Password" required  minLength={4} errors={state?.fieldErrors?.confirmPassword} />
+          <Input name="email" type="email" placeholder="Email" defaultValue="" required errors={state?.fieldErrors?.email} />
+          <Input name="username" type="text" placeholder="Username" defaultValue="" required minLength={3} maxLength={10} errors={state?.fieldErrors?.username} />
+          <Input name="password" type="password" placeholder="Password" defaultValue="" required  minLength={4} errors={state?.fieldErrors?.password} />
+          <Input name="confirmPassword" type="password" placeholder="Confirm Password" defaultValue="" required  minLength={4} errors={state?.fieldErrors?.confirmPassword} />
           <Button text="Create Account" />
         </form>
       </div>
