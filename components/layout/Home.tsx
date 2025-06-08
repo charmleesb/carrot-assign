@@ -1,5 +1,5 @@
 import { getMoreTweets } from "@/app/actions";
-import TweetList from "@/components/tweet/tweet-list";
+import TweetList from "@/components/tweet/TweetList";
 export const revalidate = 0;
 
 export default async function Home() {

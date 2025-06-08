@@ -3,7 +3,7 @@ import { formatToTimeAgo } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import LikeButton from "@/components/tweet/LikeButton";
 import getSession from "@/lib/session";
-import CommentList from "@/components/tweet/comment-list";
+import CommentList from "@/components/tweet/CommentList";
 import { getComments } from "./actions";
 
 async function getTweet(id:number) {
