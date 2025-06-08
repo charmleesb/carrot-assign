@@ -18,7 +18,6 @@ export default function TweetList({ initialTweets, initialTotalPages }: TweetLis
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
-
   const visiblePages = 5;
 
   const changePage = async (newPage: number) => {

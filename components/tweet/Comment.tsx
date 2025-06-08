@@ -1,6 +1,6 @@
 import { formatToTimeAgo } from "@/lib/utils"
 
-interface ListCommentProps {
+interface CommentProps {
   comment: string,
   created_at: Date,
   user: {
@@ -8,7 +8,7 @@ interface ListCommentProps {
   }
 }
 
-export default function Comment({comment, created_at, user}:ListCommentProps) {
+export default function Comment({comment, created_at, user}: CommentProps) {
   return (
     <div className="flex flex-col gap-2 px-5 py-3 text-black bg-neutral-100 rounded-md">
       <span className="text-xl">{user.username}</span>

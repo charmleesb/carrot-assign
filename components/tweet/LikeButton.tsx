@@ -10,7 +10,7 @@ interface LikeButtonProps {
   tweetId: number;
 }
 
-export default function LikeButton({isLiked, likeCount, tweetId}:LikeButtonProps) {
+export default function LikeButton({isLiked, likeCount, tweetId}: LikeButtonProps) {
   const [state, reducerFn] = useOptimistic({isLiked, likeCount}, (previousState) => {
     return {
       isLiked: !previousState.isLiked,

@@ -20,7 +20,6 @@ interface CommentListProps {
   username: string;
 }
 
-
 export default function CommentList({ initialComments, tweetId, username }: CommentListProps) {
   const [comments, setComments] = useState<CommentType[]>(initialComments);;
   const [optimisticComments, addOptimisticComment] = useOptimistic<CommentType[], string>(

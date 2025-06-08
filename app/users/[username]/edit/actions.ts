@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 import { z } from "zod";
 import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR } from "@/lib/constants";
 
-const checkPasswords = (({password, confirmPassword}:{password:string, confirmPassword:string}) => password === confirmPassword);
+const checkPasswords = (({password, confirmPassword}: {password:string, confirmPassword:string}) => password === confirmPassword);
 const formSchema = z.object({
   userId: z.number(),
   username: z.string({

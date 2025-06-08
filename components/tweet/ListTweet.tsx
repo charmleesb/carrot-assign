@@ -9,7 +9,7 @@ interface ListTweetProps {
     username: string
   }
 }
-export default function ListTweet({tweet, created_at, id, user}:ListTweetProps) {
+export default function ListTweet({tweet, created_at, id, user}: ListTweetProps) {
   return (
     <Link href={`/tweet/${id}`} className="flex flex-col gap-4 bg-sky-100 rounded-md p-5 text-black hover:bg-sky-200 transition">
       <div className="flex flex-col gap-2">

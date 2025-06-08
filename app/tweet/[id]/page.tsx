@@ -6,7 +6,7 @@ import getSession from "@/lib/session";
 import CommentList from "@/components/tweet/CommentList";
 import { getComments } from "./actions";
 
-async function getTweet(id:number) {
+async function getTweet(id: number) {
   const tweet = await db.tweet.findUnique({
     where: {
       id,
@@ -23,7 +23,7 @@ async function getTweet(id:number) {
   return tweet;
 }
 
-async function getUsername(id:number) {
+async function getUsername(id: number) {
   const user = await db.user.findUnique({
     where: {
       id
@@ -37,7 +37,7 @@ async function getUsername(id:number) {
   }
 };
 
-async function getLikeStatus(tweetId:number) {
+async function getLikeStatus(tweetId: number) {
   const session = await getSession();
   const isLiked = await db.like.findUnique({
     where: {
@@ -58,7 +58,7 @@ async function getLikeStatus(tweetId:number) {
   }
 };
 
-export default async function TweetDetail({params,}:{params: {id:string}}) {
+export default async function TweetDetail({params,}: {params: {id:string}}) {
   const id = Number(params.id);
   if (isNaN(id)) {
     return notFound();
