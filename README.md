@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📌 Tweet Clone Project 리팩토링 및 개선 작업
 
-## Getting Started
+이 프로젝트는 기존 Tweet 클론 앱을 리팩토링 및 개선하고, 이후 새로운 프로젝트 설계를 위한 기반으로 활용됩니다.
 
-First, run the development server:
+---
+
+## ✅ 진행 중 작업 (체크리스트)
+
+### 1. 🔧 코드 구조 및 스타일 정리
+
+- [ ] 전체 코드 스타일 통일
+
+  - 세미콜론 (`;`) 누락
+  - 들여쓰기 및 공백
+  - 함수명 / 인자 순서 일관화
+  - Prisma 호출 순서 통일
+  - `Loading` 처리 통일
+
+- [ ] 컴포넌트 파일명 정리
+
+  - `PascalCase` 적용
+  - 도메인 기반 폴더 분리
+
+- [ ] `session id` 관련 로직 분리 (`utils/session.ts` 등)
+
+---
+
+### 2. 🧩 유효성 검사 및 에러 표시 개선
+
+- [ ] 유효성 검사 실패 시 **빨간 안내문 UI**로 표시
+- [ ] 검색 입력 유효성 검사 추가
+- [ ] 오류 발생 시 표시 방식 통일 (inline / toast 등)
+
+---
+
+### 3. 🎨 디자인 및 컴포넌트 개선
+
+- [ ] 메인 컬러 리디자인
+- [ ] 트윗 카드 UI 개선
+- [ ] "댓글이 없습니다" 안내문 추가
+- [ ] 페이지네이션 UI 개선  
+      (현재 2개만 노출됨 → 크기 반응형 또는 무한 스크롤 전환 고려)
+
+- [ ] 컴포넌트 분리 기준 재정의
+- [ ] 색상 코드 및 공통 스타일 컴포넌트 분리
+
+---
+
+### 4. ➕ 기능 보완 및 추가
+
+- [ ] 유저 페이지 무한 스크롤 적용
+
+  - optimistic UI
+  - skeleton UI
+
+- [ ] 로그아웃 버튼 헤더에 추가
+- [ ] 뒤로가기 시 pagination 복원 처리
+
+- [ ] 검색 기능 개선
+  - 대소문자 구분 없이
+  - 작성자 포함 여부 결정
+
+---
+
+### 5. 🛠️ 추가 기능 아이디어 (선택 사항)
+
+- [ ] 프로필 이미지 / 아이콘 업로드
+- [ ] 댓글 삭제 및 수정 기능
+- [ ] 트윗 삭제 기능
+- [ ] 페이지 전체에 skeleton UI 도입
+- [ ] 페이지네이션 디자인 개선
+
+---
+
+## 🤔 고민 정리 (의견 확정 필요)
+
+- [ ] 트윗 / 댓글 입력 필드: `textarea` vs `input`
+- [ ] 댓글에 좋아요 기능 허용 여부
+- [ ] tweet 과 comment 데이터 구조 통일 여부 (`X` 유지할 예정)
+
+---
+
+## 🧱 새 프로젝트 설계에 반영할 기준
+
+- 기능 단위 디렉토리 구조 (도메인 기반 구조)
+- 유효성 검사 및 에러 핸들링 방식
+- 디자인 시스템 및 색상 일관화
+- optimistic UI 및 skeleton 적용 범위
+- API 및 상태 관리 설계 방식
+
+---
+
+## 🗂 관련 디렉토리 구조 리팩토링 예시
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+components/
+├── common/           # 재사용 UI
+├── tweet/            # 트윗 관련 컴포넌트
+├── user/             # 사용자 관련 컴포넌트
+├── search/           # 검색 관련
+└── layout/           # 페이지별 배치 구조
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
