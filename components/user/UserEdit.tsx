@@ -1,7 +1,7 @@
 "use client";
 
 import { updateUserInfos } from "@/app/users/[username]/edit/actions";
-import Input from "@/components/Input";
+import Input from "@/components/common/Input";
 import Link from "next/link";
 import { useFormState } from "react-dom";
 

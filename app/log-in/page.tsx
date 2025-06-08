@@ -2,8 +2,8 @@
 
 import { useFormState } from "react-dom";
 import { login } from "./actions";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+import Input from "../../components/common/Input";
+import Button from "../../components/common/Button";
 import Link from "next/link";
 
 export default function Login() {

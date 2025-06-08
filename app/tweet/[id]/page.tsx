@@ -1,9 +1,9 @@
 import db from "@/lib/db";
 import { formatToTimeAgo } from "@/lib/utils";
 import { notFound } from "next/navigation";
-import LikeButton from "@/components/like-button";
+import LikeButton from "@/components/tweet/LikeButton";
 import getSession from "@/lib/session";
-import CommentList from "@/components/comment-list";
+import CommentList from "@/components/tweet/comment-list";
 import { getComments } from "./actions";
 
 async function getTweet(id:number) {

@@ -1,4 +1,4 @@
-import UserTweetList from "@/components/user-tweet-list";
+import UserTweetList from "@/components/user/UserTweetList";
 import db from "@/lib/db";
 import getSession from "@/lib/session"
 import { EnvelopeIcon } from "@heroicons/react/24/outline";

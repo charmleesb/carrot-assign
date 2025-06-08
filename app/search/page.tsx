@@ -1,6 +1,6 @@
-import SearchForm from "@/components/search-form";
+import SearchForm from "@/components/search/SearchForm";
 import { getSearchTweets } from "./actions"
-import ListTweet from "@/components/list-tweet";
+import ListTweet from "@/components/tweet/ListTweet";
 
 export default async function SearchPage({
   searchParams,

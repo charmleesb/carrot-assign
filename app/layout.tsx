@@ -3,7 +3,7 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
-import Button from "@/components/Button";
+import Button from "@/components/common/Button";
 
 const poppins = Poppins({
   subsets: ["latin"],

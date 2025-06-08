@@ -1,10 +1,10 @@
 "use client";
 
-import ListTweet from "./list-tweet";
+import ListTweet from "./ListTweet";
 import { useState } from "react";
 import { getMoreTweets } from "@/app/actions";
-import AddTweet from "./add-tweet";
-import SearchForm from "./search-form";
+import AddTweet from "./AddTweet";
+import SearchForm from "../search/SearchForm";
 
 export type InitialTweets = Awaited<ReturnType<typeof getMoreTweets>>["tweets"];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import ListTweet from "./list-tweet";
+import ListTweet from "../tweet/ListTweet";
 import { useState } from "react";
 import { getMoreTweets } from "@/app/actions";
 

@@ -1,7 +1,7 @@
 "use client";
 
-import AddComment from "./add-comment";
-import Comment from "./comment";
+import AddComment from "./AddComment";
+import Comment from "../comment";
 import { addComment, getComments } from "@/app/tweet/[id]/actions";
 import { useOptimistic, useState } from "react";
 

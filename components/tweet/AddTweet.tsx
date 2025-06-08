@@ -1,7 +1,7 @@
 "use client";
 
 import { addTweet } from "@/app/actions";
-import Button from "./Button";
+import Button from "../common/Button";
 import { useFormState } from "react-dom";
 import { useEffect, useRef } from "react";
 
